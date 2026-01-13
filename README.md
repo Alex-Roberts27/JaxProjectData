@@ -2,6 +2,7 @@
 Data Files For Our Final BDISC Project
 
 GSM files from: https://journals.asm.org/doi/10.1128/iai.00814-20
+https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166522
 
 Protein data from: https://www.nature.com/articles/s41586-025-08615-w#Abs1
 
