@@ -20,6 +20,6 @@ Layout:
      4. Then, used GSM files for creating Gene-Gene analysis of genes in infected vs control samples. After that, we did a gene ontology exploration and Principal Component Analysis. Code for those diagrams is here:
   
 3. Explanations of other files in this repo:
-  1. rawcountdata.xlsx is a file of all the raw counts and their genes by samples, with normalized counts removed. Can be used in the same way like Genes_of_intrest file for this workflow. Was created manually through Excel, not by code.
-  2. CreatingCleanRNADataset.ipynb is code for making cleaner RNA datasets and for data wrangling. Was not used in this project, but could be used with rawcountdata.xlsx to clean the file and make it easier to use with Deseq2 analysis.
-  3. a549protein_names.xlsx is a file of protein names and gene ids for certain antimicrobial peptide precoursor proteins. This file was used to find our genes of intrest, by using the top 16 proteins by MAPP Score.
+       1. rawcountdata.xlsx is a file of all the raw counts and their genes by samples, with normalized counts removed. Can be used in the same way like Genes_of_intrest file for this workflow. Was created manually through Excel, not by code.
+       2. CreatingCleanRNADataset.ipynb is code for making cleaner RNA datasets and for data wrangling. Was not used in this project, but could be used with rawcountdata.xlsx to clean the file and make it easier to use with Deseq2 analysis.
+       3. a549protein_names.xlsx is a file of protein names and gene ids for certain antimicrobial peptide precoursor proteins. This file was used to find our genes of intrest, by using the top 16 proteins by MAPP Score.
