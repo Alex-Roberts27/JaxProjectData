@@ -18,7 +18,7 @@ Layout:
      1. We didn't do this; instead were exploring specific genes, which are in Genes_of_intrest.csv file.
      2. Our workflow was using Genes_of_intrest in deseq2 analysis for creating a heatmap and t-test statistics with code in Heatmap&T-Test.ipynb file. Also created a volcano plot for showing t-test results. DeSeq2 code from: https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb.
      3. Then, used Genes_of_intrest for making a volcano plot of genes to compare expression between infected samples and control samples and find genes with significant differences in expression. Code for that is in this file:
-     4. Then, used ___ file for creating _____ analysis of genes in infected vs control samples.
+     4. Then, used Genes_of_intrest file for creating Gene-Gene analysis of genes in infected vs control samples. After that, we did a gene ontology exploration 
   
 3. Explanations of other files in this repo:
   1. rawcountdata.xlsx is a file of all the raw counts and their genes by samples, with normalized counts removed. Can be used in the same way like Genes_of_intrest file for this workflow. Was created manually through Excel, not by code.
