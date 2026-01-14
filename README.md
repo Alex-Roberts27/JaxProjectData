@@ -8,7 +8,7 @@ GSM files represent genes and their RNA counts from infected and control mice. S
 
 Protein data from: https://www.nature.com/articles/s41586-025-08615-w#Abs1
 
-Presentation here: 
+Presentation here: https://1drv.ms/p/c/d09893c430a34e2b/IQCuI_Lgmok4Q6rif4xR_wZFATZ3Fc9pwB6x46VcJNx_hcY?e=H4jm1Q
 
 Layout:
 1. GSM files represent raw RNA counts for genes in mice infected with a bacteria. Normalized counts are included in files, but can't be used for Deseq 2 analysis.
