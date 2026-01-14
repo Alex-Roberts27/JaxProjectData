@@ -3,14 +3,12 @@
 GSM files from: https://journals.asm.org/doi/10.1128/iai.00814-20 (Paper),
 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166522 (Data).
 
-GSM files represent genes and their RNA counts from infected and control mice. Samples come from Mice 3 days post experiment start (3D) or 14 days post experiment start (14D). FPKM represents normalized counts.
-
 Protein data from: https://www.nature.com/articles/s41586-025-08615-w#Abs1
 
 Presentation here: https://1drv.ms/p/c/d09893c430a34e2b/IQCuI_Lgmok4Q6rif4xR_wZFATZ3Fc9pwB6x46VcJNx_hcY?e=H4jm1Q
 
 Layout:
-1. GSM files represent raw RNA counts for genes in mice infected with a bacteria. Normalized counts are included in files, but can't be used for Deseq 2 analysis.
+1. GSM files represent raw RNA counts for genes in mice either infected with a bacteria, or controls. Samples come from Mice 3 days post experiment start (3D) or 14 days post experiment start (14D). FPKM represents normalized counts. Normalized counts are included in files, but can't be used for Deseq 2 analysis.
 2. Options with those files:
      1. Clean files and merge them into one file with code to run DESeq2 analysis for making plots.
 
