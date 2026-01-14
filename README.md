@@ -1,5 +1,4 @@
 # JaxProjectData
-Data Files For Our Final BDISC Project
 
 GSM files from: https://journals.asm.org/doi/10.1128/iai.00814-20 (Paper),
 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166522 (Data).
