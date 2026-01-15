@@ -7,6 +7,7 @@ Protein data from: https://www.nature.com/articles/s41586-025-08615-w#Abs1
 
 Presentation here: [https://1drv.ms/p/c/d09893c430a34e2b/IQCuI_Lgmok4Q6rif4xR_wZFATZ3Fc9pwB6x46VcJNx_hcY?e=H4jm1Q
 ](https://docs.google.com/presentation/d/1zRQ5v92g9lMy2Um5BXbrCuwpzMStVxTcj4Y34F-IoSw/edit?usp=sharing)
+
 Layout:
 1. GSM files represent raw RNA counts for genes in mice either infected with a bacteria, or controls. Samples come from Mice 3 days post experiment start (3D) or 14 days post experiment start (14D). FPKM represents normalized counts. Normalized counts are included in files, but can't be used for Deseq 2 analysis.
 2. Options with those files:
