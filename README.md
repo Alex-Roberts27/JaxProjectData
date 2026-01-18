@@ -20,38 +20,38 @@ Layout:
 5. Workflow:
 
 :: Initial Data Processing ::
-    <br> 1. Clean PDADP protein list and convert to gene names which can be used to query transcriptomic data.
-          a. First module is from blood PDADPs (test control), second is for A549 derived PDADPs (used for experimental figures).
-          b. MAPP score was gated at >5 to identify PDADPs, per Goldberg et al., protocol. </br>
-     <br> 2. Wrangle Bulk-RNAseq dataset into 1 csv.
-          a. First module is to import dataset xlsx files.
-          b. Merges files into 1 csv, with each sample raw count and fpkm being appended to dataframe. </br>
+    <br> 1. Clean PDADP protein list and convert to gene names which can be used to query transcriptomic data.</br>
+           <br>a. First module is from blood PDADPs (test control), second is for A549 derived PDADPs (used for experimental figures).</br>
+           <br>b. MAPP score was gated at >5 to identify PDADPs, per Goldberg et al., protocol. </br>
+     <br> 2. Wrangle Bulk-RNAseq dataset into 1 csv.</br>
+           <br>a. First module is to import dataset xlsx files.</br>
+           <br>b. Merges files into 1 csv, with each sample raw count and fpkm being appended to dataframe. </br>
           
 :: Gene vs. Sample Correlation Analysis:
-     3. Utilizing pyDeSeq2 to produce data for volcano plot. [DeSeq2 code from: https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb.]
-          a. Module installs packages: pydeseq2, os, pickle, and numpy.
-          b. Reorganizing dataframe to comply with volcano plot input format.
-          c. Removes 0 values which cause DeSeq2 errors.
-          d. Creating metadata file for DeSeq2 input.
-          e. Mutliple modules run Deseq and obtains padj and log10(change) for genes of interest
-     4. Produces Volcano plot utilizing sanbomics.plots package.
-     5. Produces bar plot using volcano plot analysis from DeSeq2 for both healthy and infected tissues.
+      <br>3. Utilizing pyDeSeq2 to produce data for volcano plot. [DeSeq2 code from: https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb.]</br>
+           <br>a. Module installs packages: pydeseq2, os, pickle, and numpy.</br>
+           <br>b. Reorganizing dataframe to comply with volcano plot input format.</br>
+           <br>c. Removes 0 values which cause DeSeq2 errors.</br>
+           <br>d. Creating metadata file for DeSeq2 input.</br>
+           <br>e. Mutliple modules run Deseq and obtains padj and log10(change) for genes of interest.</br>
+      <br>4. Produces Volcano plot utilizing sanbomics.plots package.</br>
+      <br>5. Produces bar plot using volcano plot analysis from DeSeq2 for both healthy and infected tissues.</br>
      
 :: Gene vs. Gene Correlation Analysis
-     6. Conducts pairwise comparisons of all genes in RNAseq database, filtered for low variance genes.
-          a. Utilizes seaborn package [https://seaborn.pydata.org/generated/seaborn.heatmap.html] to produce heatmap.
-          b. Cluster heatmap with seaborn package [https://seaborn.pydata.org/generated/seaborn.clustermap.html] to identify PDADP gene clusters.
-          c. Creates gene_matrix.csv at end of module for future analysis.
-     7. Utilizes gene ontology analysis to identify possible functional similarities between coexpressed genes in different clusters.
-          a. Uses gseapy pakcage [https://github.com/zqfang/GSEApy] to conduct gene ontology.
-          b. Maintains clustering with Scipy [https://docs.scipy.org/doc/scipy/reference/cluster.hierarchy.html] and creates heirarchical functional categories.
-          c. Called gene ontology databases from JAX MGI [https://www.informatics.jax.org/function.shtml]
-     8. Uses skikit package to conduct principal component analysis on gene-gene correlations [https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html]
-          a. First module only shows PDADP genes.
-          b. Second module adds in antigen processing genes (APGs).
-     9. Adapts code from SGALELLA [https://www.kaggle.com/code/sgalella/correlation-heatmaps-with-hierarchical-clustering] and Prasad Ostwal [https://ostwalprasad.github.io/machine-learning/PCA-using-python.html] to create heatmap mapping correlation of PDADP and APGs in PCA.
-     10. Utilizes sklearn.cluster to cluster and then assign cell types, adapting deconvolution protocol described here: [https://github.com/theislab/AutoGeneS/blob/master/deconv_example/bulkDeconvolution_using_singleCellReferenceProfiles.ipynb]
-          - Cell types assigned from dictionary [https://panglaodb.se/] specifically designed for tissue specific analysis of mice.
+      <br>6. Conducts pairwise comparisons of all genes in RNAseq database, filtered for low variance genes.</br>
+          <br> a. Utilizes seaborn package [https://seaborn.pydata.org/generated/seaborn.heatmap.html] to produce heatmap.</br>
+           <br>b. Cluster heatmap with seaborn package [https://seaborn.pydata.org/generated/seaborn.clustermap.html] to identify PDADP gene clusters.</br>
+           <br>c. Creates gene_matrix.csv at end of module for future analysis.</br>
+      <br>7. Utilizes gene ontology analysis to identify possible functional similarities between coexpressed genes in different clusters.</br>
+         <br>  a. Uses gseapy pakcage [https://github.com/zqfang/GSEApy] to conduct gene ontology.</br>
+          <br> b. Maintains clustering with Scipy [https://docs.scipy.org/doc/scipy/reference/cluster.hierarchy.html] and creates heirarchical functional categories.</br>
+          <br> c. Called gene ontology databases from JAX MGI [https://www.informatics.jax.org/function.shtml] </br>
+     <br> 8. Uses skikit package to conduct principal component analysis on gene-gene correlations [https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html]</br>
+       <br>    a. First module only shows PDADP genes.</br>
+        <br>   b. Second module adds in antigen processing genes (APGs).</br>
+     <br> 9. Adapts code from SGALELLA [https://www.kaggle.com/code/sgalella/correlation-heatmaps-with-hierarchical-clustering] and Prasad Ostwal [https://ostwalprasad.github.io/machine-learning/PCA-using-python.html] to create heatmap mapping correlation of PDADP and APGs in PCA. </br>
+      <br>10. Utilizes sklearn.cluster to cluster and then assign cell types, adapting deconvolution protocol described here: [https://github.com/theislab/AutoGeneS/blob/master/deconv_example/bulkDeconvolution_using_singleCellReferenceProfiles.ipynb]</br>
+          <br> - Cell types assigned from dictionary [https://panglaodb.se/] specifically designed for tissue specific analysis of mice.</br>
 
 7. Presentation [JAX BDSiC_Antimicrobial Defense Peptides Presentation_final.pptx] show summary of findings with background and scientific interpretation.
 
