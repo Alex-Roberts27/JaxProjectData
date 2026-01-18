@@ -19,7 +19,7 @@ Layout:
 
 5. Workflow:
 
-:: Initial Data Processing ::
+**:: Initial Data Processing ::**
     <br> 1. Clean PDADP protein list and convert to gene names which can be used to query transcriptomic data.</br>
            <br>a. First module is from blood PDADPs (test control), second is for A549 derived PDADPs (used for experimental figures).</br>
            <br>b. MAPP score was gated at >5 to identify PDADPs, per Goldberg et al., protocol. </br>
@@ -27,7 +27,7 @@ Layout:
            <br>a. First module is to import dataset xlsx files.</br>
            <br>b. Merges files into 1 csv, with each sample raw count and fpkm being appended to dataframe. </br>
           
-:: Gene vs. Sample Correlation Analysis:
+**:: Gene vs. Sample Correlation Analysis:**
       <br>3. Utilizing pyDeSeq2 to produce data for volcano plot. [DeSeq2 code from: https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb.]</br>
            <br>a. Module installs packages: pydeseq2, os, pickle, and numpy.</br>
            <br>b. Reorganizing dataframe to comply with volcano plot input format.</br>
@@ -37,7 +37,7 @@ Layout:
       <br>4. Produces Volcano plot utilizing sanbomics.plots package.</br>
       <br>5. Produces bar plot using volcano plot analysis from DeSeq2 for both healthy and infected tissues.</br>
      
-:: Gene vs. Gene Correlation Analysis
+**:: Gene vs. Gene Correlation Analysis ::**
       <br>6. Conducts pairwise comparisons of all genes in RNAseq database, filtered for low variance genes.</br>
           <br> a. Utilizes seaborn package [https://seaborn.pydata.org/generated/seaborn.heatmap.html] to produce heatmap.</br>
            <br>b. Cluster heatmap with seaborn package [https://seaborn.pydata.org/generated/seaborn.clustermap.html] to identify PDADP gene clusters.</br>
