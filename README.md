@@ -20,12 +20,12 @@ Layout:
 5. Workflow:
 
 :: Initial Data Processing ::
-     1. Clean PDADP protein list and convert to gene names which can be used to query transcriptomic data.
+    <br> 1. Clean PDADP protein list and convert to gene names which can be used to query transcriptomic data.
           a. First module is from blood PDADPs (test control), second is for A549 derived PDADPs (used for experimental figures).
-          b. MAPP score was gated at >5 to identify PDADPs, per Goldberg et al., protocol.
-     2. Wrangle Bulk-RNAseq dataset into 1 csv.
+          b. MAPP score was gated at >5 to identify PDADPs, per Goldberg et al., protocol. </br>
+     <br> 2. Wrangle Bulk-RNAseq dataset into 1 csv.
           a. First module is to import dataset xlsx files.
-          b. Merges files into 1 csv, with each sample raw count and fpkm being appended to dataframe.
+          b. Merges files into 1 csv, with each sample raw count and fpkm being appended to dataframe. </br>
           
 :: Gene vs. Sample Correlation Analysis:
      3. Utilizing pyDeSeq2 to produce data for volcano plot. [DeSeq2 code from: https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb.]
