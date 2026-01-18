@@ -1,24 +1,61 @@
-# Jackson Labs BDISC Project Antimicrobial Peptides
+# Jackson Labs Winter 2026 BDISC cohort Project on Proteasome Derived Antimicrobial Defense Peptides (PDADP) in Immune Tissues
 
-GSM files from: https://journals.asm.org/doi/10.1128/iai.00814-20 (Paper),
-https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166522 (Data).
+Bulk RNA-seq Mouse bone marrow dataset obtained fro Lin and colleagues 2021 (https://doi.org/10.1128/iai.00814-20). 
+     GEO accesion number: GSE166522(https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166522)
 
-Protein data from: https://www.nature.com/articles/s41586-025-08615-w#Abs1
+Protein data from Goldberg and colleagues 2025: https://www.nature.com/articles/s41586-025-08615-w#Abs1
 
 Presentation here: [https://1drv.ms/p/c/d09893c430a34e2b/IQCuI_Lgmok4Q6rif4xR_wZFATZ3Fc9pwB6x46VcJNx_hcY?e=H4jm1Q
 ](https://docs.google.com/presentation/d/1zRQ5v92g9lMy2Um5BXbrCuwpzMStVxTcj4Y34F-IoSw/edit?usp=sharing)
 
 Layout:
-1. GSM files represent raw RNA counts for genes in mice either infected with a bacteria, or controls. Samples come from Mice 3 days post experiment start (3D) or 14 days post experiment start (14D). FPKM represents normalized counts. Normalized counts are included in files, but can't be used for Deseq 2 analysis.
-2. Options with those files:
-     1. Clean files and merge them into one file with code to run DESeq2 analysis for making plots.
+1. Pre-processed Bulk RNA-seq Data [Bone Marrow Bulk-seq Dataset_Lin et al 2021_GSE166522] represent raw RNA counts for transcripts (genes) in mice either infected with a S. Aureus bacteria, or controls. Samples come from Mice 3 days(3D) post experiment start (n=6) or 14 days(14D) post experiment start (n=6). FPKM represents normalized counts, provided from Lin et al., 2021, controlling for transcript length and GC bias. Raw counts were used for Deseq2 analysis to produce volcano plot; while remaining analyses were done with normalized counts.
 
-     1. We didn't do this; instead we were exploring specific genes, which are in Genes_of_intrest.csv file.
-     2. Our workflow was using Genes_of_intrest in deseq2 analysis for creating a heatmap and t-test statistics with code in Heatmap&T-Test.ipynb file. Also created a volcano plot for showing t-test results. DeSeq2 code from: https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb.
-     3. Then, used GSM files for making a volcano plot of genes to compare expression between infected samples and control samples, and find genes with significant differences in expression. Code for that is in this file:
-     4. Then, used GSM files for creating Gene-Gene analysis of genes in infected vs control samples. After that, we did a gene ontology exploration and Principal Component Analysis. Code for those diagrams is here:
-  
-3. Explanations of other files in this repo:
+2. PDADP protein list file [PDADP Protein_names_Goldberg et al 2025_rom A549 cells.xlsx], from Goldberg et al., 2025, was produced from proteomics analysis of small peptide secretions of cultured human A549 cells exposed to various bacterial agents. Peptide sequences were already alignd to precursor proteins and machine learning derived MAPP score indicates antimicrobial activity of each peptide.
+
+3. Python code used to produce all data-based fiuges in presentation [JAX_2026_PDDP_immune_Maya,_Alex_&_Wimeth_Project.ipynb] is shown in colab file. Contents are described more thoroughly in workflow.
+
+4. Intermediate files [Processed Files] created and utilized by python code to produce graphs, communicate between modules, and allow for visualization in excel and PRISM.
+
+5. Workflow:
+
+:: Initial Data Processing ::
+     1. Clean PDADP protein list and convert to gene names which can be used to query transcriptomic data.
+          a. First module is from blood PDADPs (test control), second is for A549 derived PDADPs (used for experimental figures).
+          b. MAPP score was gated at >5 to identify PDADPs, per Goldberg et al., protocol.
+     2. Wrangle Bulk-RNAseq dataset into 1 csv.
+          a. First module is to import dataset xlsx files.
+          b. Merges files into 1 csv, with each sample raw count and fpkm being appended to dataframe.
+          
+:: Gene vs. Sample Correlation Analysis:
+     3. Utilizing pyDeSeq2 to produce data for volcano plot. [DeSeq2 code from: https://github.com/mousepixels/sanbomics_scripts/blob/main/PyDeseq2_DE_tutorial.ipynb.]
+          a. Module installs packages: pydeseq2, os, pickle, and numpy.
+          b. Reorganizing dataframe to comply with volcano plot input format.
+          c. Removes 0 values which cause DeSeq2 errors.
+          d. Creating metadata file for DeSeq2 input.
+          e. Mutliple modules run Deseq and obtains padj and log10(change) for genes of interest
+     4. Produces Volcano plot utilizing sanbomics.plots package.
+     5. Produces bar plot using volcano plot analysis from DeSeq2 for both healthy and infected tissues.
+     
+:: Gene vs. Gene Correlation Analysis
+     6. Conducts pairwise comparisons of all genes in RNAseq database, filtered for low variance genes.
+          a. Utilizes seaborn package [https://seaborn.pydata.org/generated/seaborn.heatmap.html] to produce heatmap.
+          b. Cluster heatmap with seaborn package [https://seaborn.pydata.org/generated/seaborn.clustermap.html] to identify PDADP gene clusters.
+          c. Creates gene_matrix.csv at end of module for future analysis.
+     7. Utilizes gene ontology analysis to identify possible functional similarities between coexpressed genes in different clusters.
+          a. Uses gseapy pakcage [https://github.com/zqfang/GSEApy] to conduct gene ontology.
+          b. Maintains clustering with Scipy [https://docs.scipy.org/doc/scipy/reference/cluster.hierarchy.html] and creates heirarchical functional categories.
+          c. Called gene ontology databases from JAX MGI [https://www.informatics.jax.org/function.shtml]
+     8. Uses skikit package to conduct principal component analysis on gene-gene correlations [https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html]
+          a. First module only shows PDADP genes.
+          b. Second module adds in antigen processing genes (APGs).
+     9. Adapts code from SGALELLA [https://www.kaggle.com/code/sgalella/correlation-heatmaps-with-hierarchical-clustering] and Prasad Ostwal [https://ostwalprasad.github.io/machine-learning/PCA-using-python.html] to create heatmap mapping correlation of PDADP and APGs in PCA.
+     10. Utilizes sklearn.cluster to cluster and then assign cell types, adapting deconvolution protocol described here: [https://github.com/theislab/AutoGeneS/blob/master/deconv_example/bulkDeconvolution_using_singleCellReferenceProfiles.ipynb]
+          - Cell types assigned from dictionary [https://panglaodb.se/] specifically designed for tissue specific analysis of mice.
+
+7. Presentation [JAX BDSiC_Antimicrobial Defense Peptides Presentation_final.pptx] show summary of findings with background and scientific interpretation.
+
+8. Explanations of other files in this repo:
      1. rawcountdata.xlsx is a file of all the raw counts and their genes by samples, with normalized counts removed. Can be used in the same way like Genes_of_intrest file for this workflow. Was created manually through Excel, not by code.
      2. CreatingCleanRNADataset.ipynb is code for making cleaner RNA datasets and for data wrangling. Was not used in this project, but could be used with rawcountdata.xlsx to clean the file and make it easier to use with Deseq2 analysis.
      3. a549protein_names.xlsx is a file of protein names and gene ids for certain antimicrobial peptide precoursor proteins. This file was used to find our genes of intrest, by using the top 16 proteins by MAPP Score.
